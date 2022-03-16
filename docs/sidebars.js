@@ -28,6 +28,7 @@ module.exports = {
       "behaviors/mod-morph",
       "behaviors/sticky-key",
       "behaviors/sticky-layer",
+      "behaviors/tap-dance",
       "behaviors/caps-word",
       "behaviors/mouse-emulation",
       "behaviors/key-repeat",
