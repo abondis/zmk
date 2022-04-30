@@ -55,6 +55,7 @@ module.exports = {
     ],
     Configuration: [
       "config/index",
+      "config/backlight",
       "config/behaviors",
       "config/combos",
       "config/displays",
