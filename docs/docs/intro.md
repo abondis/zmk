@@ -14,6 +14,7 @@ ZMK is currently missing some features found in other popular firmware. This tab
 | Legend: | ✅ Supported | 🚧 Under Development | 💡 Planned |
 | :------ | :----------- | :------------------- | :--------- |
 
+
 | **Feature**                                                                                                                        | ZMK | BlueMicro | QMK |
 | ---------------------------------------------------------------------------------------------------------------------------------- | :-: | :-------: | :-: |
 | Low Latency BLE Support                                                                                                            | ✅  |    ✅     |     |
