@@ -1,8 +1,8 @@
 file_format: "1"
-id: ffkb
-name: ffkb
+id: ffkb_abo
+name: ffkb_abo
 type: shield
-url: https://github.com/sadekbaroudi/ffkb/
+url: https://github.com/sadekbaroudi/ffkb_abo/
 requires: [pro_micro]
 features:
   - keys
