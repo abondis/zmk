@@ -1,0 +1,14 @@
+# Copyright (c) 2021 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+if SHIELD_FFKB
+
+config ZMK_KEYBOARD_NAME
+    default "ffkb"
+
+config I2C
+	default y
+
+CONFIG_BUILD_OUTPUT_UF2=y
+
+endif
