@@ -1,0 +1,55 @@
+292/335] Building C object modules/drivers/sensor/cirque_trackpad/CMakeFiles/..__app__drivers__sensor__cirque_trackpad.dir/cirque_trackpad.c.obj
+FAILED: modules/drivers/sensor/cirque_trackpad/CMakeFiles/..__app__drivers__sensor__cirque_trackpad.dir/cirque_trackpad.c.obj 
+/home/user/.local/zephyr-sdk-0.15.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc -DKERNEL -DNRF52840_XXAA -D_FORTIFY_SOURCE=2 -D__PROGRAM_START -D__ZEPHYR__=1 -I/home/user/repos/keyboards/zmk/zephyr/include -I/home/user/repos/keyboards/zmk/app/boards/shields/ffkb_abo/build/zephyr/include/generated -I/home/user/repos/keyboards/zmk/zephyr/soc/arm/nordic_nrf/nrf52 -I/home/user/repos/keyboards/zmk/zephyr/soc/arm/nordic_nrf/common/. -I/home/user/repos/keyboards/zmk/zephyr/subsys/bluetooth -I/home/user/repos/keyboards/zmk/zephyr/subsys/usb -I/home/user/repos/keyboards/zmk/zephyr/subsys/settings/include -I/home/user/repos/keyboards/zmk/modules/hal/cmsis/CMSIS/Core/Include -I/home/user/repos/keyboards/zmk/modules/hal/nordic/nrfx -I/home/user/repos/keyboards/zmk/modules/hal/nordic/nrfx/drivers/include -I/home/user/repos/keyboards/zmk/modules/hal/nordic/nrfx/mdk -I/home/user/repos/keyboards/zmk/zephyr/modules/hal_nordic/nrfx/. -I/home/user/repos/keyboards/zmk/modules/crypto/tinycrypt/lib/include -I/home/user/repos/keyboards/zmk/app/drivers/sensor/battery/. -I/home/user/repos/keyboards/zmk/app/drivers/sensor/cirque_trackpad/. -isystem /home/user/repos/keyboards/zmk/zephyr/lib/libc/minimal/include -isystem /home/user/.local/zephyr-sdk-0.15.0/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.1.0/include -isystem /home/user/.local/zephyr-sdk-0.15.0/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.1.0/include-fixed -Os -imacros /home/user/repos/keyboards/zmk/app/boards/shields/ffkb_abo/build/zephyr/include/generated/autoconf.h -ffreestanding -fno-common -g -gdwarf-4 -fdiagnostics-color=always -mcpu=cortex-m4 -mthumb -mabi=aapcs -mfp16-format=ieee -imacros /home/user/repos/keyboards/zmk/zephyr/include/toolchain/zephyr_stdint.h -Wall -Wformat -Wformat-security -Wno-format-zero-length -Wno-main -Wno-pointer-sign -Wpointer-arith -Wexpansion-to-defined -Wno-unused-but-set-variable -Werror=implicit-int -fno-asynchronous-unwind-tables -fno-pie -fno-pic -fno-reorder-functions -fno-defer-pop -fmacro-prefix-map=/home/user/repos/keyboards/zmk/app=CMAKE_SOURCE_DIR -fmacro-prefix-map=/home/user/repos/keyboards/zmk/zephyr=ZEPHYR_BASE -fmacro-prefix-map=/home/user/repos/keyboards/zmk=WEST_TOPDIR -ffunction-sections -fdata-sections -std=c99 -nostdinc -Wfatal-errors -MD -MT modules/drivers/sensor/cirque_trackpad/CMakeFiles/..__app__drivers__sensor__cirque_trackpad.dir/cirque_trackpad.c.obj -MF modules/drivers/sensor/cirque_trackpad/CMakeFiles/..__app__drivers__sensor__cirque_trackpad.dir/cirque_trackpad.c.obj.d -o modules/drivers/sensor/cirque_trackpad/CMakeFiles/..__app__drivers__sensor__cirque_trackpad.dir/cirque_trackpad.c.obj -c /home/user/repos/keyboards/zmk/app/drivers/sensor/cirque_trackpad/cirque_trackpad.c
+/home/user/repos/keyboards/zmk/app/drivers/sensor/cirque_trackpad/cirque_trackpad.c: In function 'pinnacle_init':
+/home/user/repos/keyboards/zmk/app/drivers/sensor/cirque_trackpad/cirque_trackpad.c:168:27: warning: unused variable 'data' [-Wunused-variable]
+  168 |     struct pinnacle_data *data = dev->data;
+      |                           ^~~~
+In file included from /home/user/repos/keyboards/zmk/zephyr/include/sys/util_macro.h:34,
+                 from /home/user/repos/keyboards/zmk/zephyr/include/sys/atomic.h:16,
+                 from /home/user/repos/keyboards/zmk/zephyr/include/kernel_includes.h:21,
+                 from /home/user/repos/keyboards/zmk/zephyr/include/kernel.h:17,
+                 from /home/user/repos/keyboards/zmk/zephyr/include/init.h:11,
+                 from /home/user/repos/keyboards/zmk/app/drivers/sensor/cirque_trackpad/cirque_trackpad.c:3:
+/home/user/repos/keyboards/zmk/app/drivers/sensor/cirque_trackpad/cirque_trackpad.c: At top level:
+/home/user/repos/keyboards/zmk/zephyr/include/sys/util_internal.h:64:53: error: '__DEBRACKET' undeclared here (not in a function)
+   64 | #define __GET_ARG2_DEBRACKET(ignore_this, val, ...) __DEBRACKET val
+      |                                                     ^~~~~~~~~~~
+/home/user/repos/keyboards/zmk/zephyr/include/sys/util_internal.h:67:26: note: in definition of macro '__DEBRACKET'
+   67 | #define __DEBRACKET(...) __VA_ARGS__
+      |                          ^~~~~~~~~~~
+/home/user/repos/keyboards/zmk/zephyr/include/sys/util_internal.h:59:9: note: in expansion of macro '__GET_ARG2_DEBRACKET'
+   59 |         __GET_ARG2_DEBRACKET(one_or_two_args _if_code, _else_code)
+      |         ^~~~~~~~~~~~~~~~~~~~
+/home/user/repos/keyboards/zmk/zephyr/include/sys/util_internal.h:54:9: note: in expansion of macro '__COND_CODE'
+   54 |         __COND_CODE(_XXXX##_flag, _if_1_code, _else_code)
+      |         ^~~~~~~~~~~
+/home/user/repos/keyboards/zmk/zephyr/include/sys/util_macro.h:157:9: note: in expansion of macro 'Z_COND_CODE_1'
+  157 |         Z_COND_CODE_1(_flag, _if_1_code, _else_code)
+      |         ^~~~~~~~~~~~~
+/home/user/repos/keyboards/zmk/zephyr/include/devicetree.h:2748:9: note: in expansion of macro 'COND_CODE_1'
+ 2748 |         COND_CODE_1(DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT),   \
+      |         ^~~~~~~~~~~
+/home/user/repos/keyboards/zmk/zephyr/include/sys/util_internal.h:59:9: note: in expansion of macro '__GET_ARG2_DEBRACKET'
+   59 |         __GET_ARG2_DEBRACKET(one_or_two_args _if_code, _else_code)
+      |         ^~~~~~~~~~~~~~~~~~~~
+/home/user/repos/keyboards/zmk/zephyr/include/sys/util_internal.h:54:9: note: in expansion of macro '__COND_CODE'
+   54 |         __COND_CODE(_XXXX##_flag, _if_1_code, _else_code)
+      |         ^~~~~~~~~~~
+/home/user/repos/keyboards/zmk/zephyr/include/sys/util_macro.h:157:9: note: in expansion of macro 'Z_COND_CODE_1'
+  157 |         Z_COND_CODE_1(_flag, _if_1_code, _else_code)
+      |         ^~~~~~~~~~~~~
+/home/user/repos/keyboards/zmk/app/drivers/sensor/cirque_trackpad/cirque_trackpad.c:258:9: note: in expansion of macro 'COND_CODE_1'
+  258 |         COND_CODE_1(CONFIG_PINNACLE_TRIGGER, (.dr = GPIO_DT_SPEC_GET(DT_DRV_INST(0), dr_gpios),), ) \
+      |         ^~~~~~~~~~~
+/home/user/repos/keyboards/zmk/app/boards/shields/ffkb_abo/build/zephyr/include/generated/devicetree_unfixed.h:13322:50: note: in expansion of macro 'CIRQUE_INST'
+13322 | #define DT_FOREACH_OKAY_INST_cirque_pinnacle(fn) fn(0)
+      |                                                  ^~
+/home/user/repos/keyboards/zmk/zephyr/include/sys/util_internal.h:99:36: note: in expansion of macro 'DT_FOREACH_OKAY_INST_cirque_pinnacle'
+   99 | #define UTIL_PRIMITIVE_CAT(a, ...) a##__VA_ARGS__
+      |                                    ^
+/home/user/repos/keyboards/zmk/app/drivers/sensor/cirque_trackpad/cirque_trackpad.c:262:1: note: in expansion of macro 'DT_INST_FOREACH_STATUS_OKAY'
+  262 | DT_INST_FOREACH_STATUS_OKAY(CIRQUE_INST)
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated due to -Wfatal-errors.
+

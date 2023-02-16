@@ -4,6 +4,9 @@ name: ffkb_abo
 type: shield
 url: https://github.com/sadekbaroudi/ffkb_abo/
 requires: [pro_micro]
+exposes:
+  - i2c_trackpad
 features:
   - keys
   - encoder
+  - trackpad
