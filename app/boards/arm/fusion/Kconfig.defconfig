@@ -61,6 +61,6 @@ endchoice
 
 endif
 
-source "/home/steven/gitproj/zmk/app/steno/Kconfig"
+# source "/home/steven/gitproj/zmk/app/steno/Kconfig"
 
 endif # BOARD_FUSION

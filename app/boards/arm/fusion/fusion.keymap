@@ -8,7 +8,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
-#include "../steno/impl/zmk/steno_keys.h"
+/* #include "../steno/impl/zmk/steno_keys.h" */
 
 / {
     behaviors {
@@ -123,13 +123,13 @@
             >;
         };
 
-        steno {
-            bindings = <
-&stn STN_S_  &stn STN_T_ &stn STN_P_  &stn STN_H_   &stn STN_STAR &stn STN_STAR &stn STN__F   &stn STN__P  &stn STN__L   &stn STN__T
-&stn STN_S_  &stn STN_K_ &stn STN_W_  &stn STN_R_   &stn STN_STAR &stn STN_STAR &stn STN__R   &stn STN__B  &stn STN__G   &stn STN__S
-&none        &none       &none        &none         &none         &none         &none         &none        &none         &none
-                         &tog STENO   &stn STN_A    &stn STN_O    &stn STN_E    &stn STN_U    &stn STN_NUM
-            >;
-        };
+/*         steno { */
+/*             bindings = < */
+/* &stn STN_S_  &stn STN_T_ &stn STN_P_  &stn STN_H_   &stn STN_STAR &stn STN_STAR &stn STN__F   &stn STN__P  &stn STN__L   &stn STN__T */
+/* &stn STN_S_  &stn STN_K_ &stn STN_W_  &stn STN_R_   &stn STN_STAR &stn STN_STAR &stn STN__R   &stn STN__B  &stn STN__G   &stn STN__S */
+/* &none        &none       &none        &none         &none         &none         &none         &none        &none         &none */
+/*                          &tog STENO   &stn STN_A    &stn STN_O    &stn STN_E    &stn STN_U    &stn STN_NUM */
+/*             >; */
+/*         }; */
     };
 };
