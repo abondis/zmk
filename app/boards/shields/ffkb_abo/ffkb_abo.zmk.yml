@@ -8,5 +8,4 @@ exposes:
   - i2c_trackpad
 features:
   - keys
-  - encoder
   - trackpad

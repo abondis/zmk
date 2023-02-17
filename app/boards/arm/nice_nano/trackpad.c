@@ -12,7 +12,8 @@ LOG_MODULE_REGISTER(trackpad, CONFIG_SENSOR_LOG_LEVEL);
 
 const struct device *trackpad = DEVICE_DT_GET(DT_INST(0, cirque_pinnacle));
 
-static void handle_trackpad(const struct device *dev, const struct sensor_trigger *trig) {
+// static void handle_trackpad(const struct device *dev, const struct sensor_trigger *trig) {
+static void handle_trackpad(const struct device *dev) {
     static uint8_t last_pressed = 0;
     int ret = sensor_sample_fetch(dev);
     if (ret < 0) {
@@ -62,16 +63,33 @@ static void handle_trackpad(const struct device *dev, const struct sensor_trigge
     last_pressed = btn.val1;
 }
 
+void my_work_handler(struct k_work *work) {
+    /* do the processing that needs to be done periodically */
+  handle_trackpad(trackpad);
+}
+
+K_WORK_DEFINE(my_work, my_work_handler);
+
+void my_timer_handler(struct k_timer *dummy)
+{
+    k_work_submit(&my_work);
+}
+
+K_TIMER_DEFINE(my_timer, my_timer_handler, NULL);
+
+
 static int trackpad_init() {
     struct sensor_trigger trigger = {
         .type = SENSOR_TRIG_DATA_READY,
         .chan = SENSOR_CHAN_ALL,
     };
     printk("trackpad");
-    if (sensor_trigger_set(trackpad, &trigger, handle_trackpad) < 0) {
-        LOG_ERR("can't set trigger");
-        return -EIO;
-    };
+    /* start periodic timer that expires once every second */
+    k_timer_start(&my_timer, K_MSEC(100), K_MSEC(100));
+    // if (sensor_trigger_set(trackpad, &trigger, handle_trackpad) < 0) {
+    //     LOG_ERR("can't set trigger");
+    //     return -EIO;
+    // };
     return 0;
 }
 
