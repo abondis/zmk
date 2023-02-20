@@ -1,3 +1,4 @@
+#include <stdint.h>
 #define DT_DRV_COMPAT cirque_pinnacle
 
 #include <init.h>
@@ -78,7 +79,14 @@ static int pinnacle_write(const struct device *dev, const uint8_t addr, const ui
     }
     return ret;
 #elif DT_INST_ON_BUS(0, i2c)
-    return i2c_reg_write_byte_dt(&config->bus, PINNACLE_WRITE | addr, val);
+  // uint8_t v[] = {0x2A << 1, PINNACLE_WRITE|addr, val};
+  // TODO: use &config-bus.addr
+  uint16_t w = 0x2A << 1;
+  // return i2c_write_dt(&config->bus, v, 3);
+  // return i2c_reg_write_byte_dt(&config->bus, PINNACLE_WRITE | addr, val);
+  return i2c_reg_write_byte(
+    dev,
+    PINNACLE_WRITE | addr, val, w);
 #endif
 }
 
@@ -170,6 +178,13 @@ static int pinnacle_init(const struct device *dev) {
 
     LOG_WRN("pinnacle start");
     int ret;
+
+#if DT_INST_ON_BUS(0, i2c)
+	  if (!device_is_ready(config->bus.bus)) {
+		  LOG_ERR("I2C bus is not ready");
+		  return -ENODEV;
+	  }
+#endif
     ret = pinnacle_write(dev, PINNACLE_STATUS1, PINNACLE_SYS_CFG_RESET);
     if (ret < 0) {
         LOG_ERR("can't reset %d", ret);
