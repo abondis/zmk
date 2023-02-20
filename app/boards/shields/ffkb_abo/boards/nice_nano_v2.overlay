@@ -1,0 +1,18 @@
+/* &pro_micro_i2c { */
+&i2c0 {
+	compatible = "nordic,nrf-twi";
+	status = "okay";
+	sda-pin = <17>;
+	scl-pin = <20>;
+
+	trackpad@2a {
+    status = "okay";
+	  label = "trackpad";
+		compatible = "cirque,pinnacle";
+		reg = <0x2a>;
+	};
+};
+
+&spi0 {
+  status = "disabled";
+};
