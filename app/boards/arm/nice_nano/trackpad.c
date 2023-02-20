@@ -79,13 +79,9 @@ K_TIMER_DEFINE(my_timer, my_timer_handler, NULL);
 
 
 static int trackpad_init() {
-    struct sensor_trigger trigger = {
-        .type = SENSOR_TRIG_DATA_READY,
-        .chan = SENSOR_CHAN_ALL,
-    };
     printk("trackpad");
     /* start periodic timer that expires once every second */
-    k_timer_start(&my_timer, K_MSEC(100), K_MSEC(100));
+    // k_timer_start(&my_timer, K_MSEC(1000), K_MSEC(1000));
     // if (sensor_trigger_set(trackpad, &trigger, handle_trackpad) < 0) {
     //     LOG_ERR("can't set trigger");
     //     return -EIO;
