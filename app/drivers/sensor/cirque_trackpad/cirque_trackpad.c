@@ -1,3 +1,4 @@
+#include "drivers/i2c.h"
 #include <stdint.h>
 #define DT_DRV_COMPAT cirque_pinnacle
 
@@ -79,14 +80,32 @@ static int pinnacle_write(const struct device *dev, const uint8_t addr, const ui
     }
     return ret;
 #elif DT_INST_ON_BUS(0, i2c)
-  // uint8_t v[] = {0x2A << 1, PINNACLE_WRITE|addr, val};
-  // TODO: use &config-bus.addr
-  uint16_t w = 0x2A << 1;
-  // return i2c_write_dt(&config->bus, v, 3);
+  uint8_t i2c_addr = 0x2A << 1; // Shift address one bit for write command
+  uint8_t data[] = {PINNACLE_WRITE|addr, val}; // Register address and value to write
+
+  // Start I2C communication
+  // this breaks the board when sending the uf2 to the board
+  int ret = i2c_write(dev, data, sizeof(data), i2c_addr);
+  if (ret < 0) {
+    printk("I2C write failed: %d\n", ret);
+  }
+
+  // NOTE: ../zephyr/samples/drivers/i2c_fujitsu_fram/src/main.c might help
+  // Stop I2C communication
+  // i2c_stop(i2c_dev);
+
+  // uint8_t v[] = {0x2A << 1, PINNACLE_WRITE|addr, val, I2C_MSG_STOP};
+  // // TODO: use &config-bus.addr
+  // return i2c_write_dt(&config->bus, v, 4);
+  //
   // return i2c_reg_write_byte_dt(&config->bus, PINNACLE_WRITE | addr, val);
-  return i2c_reg_write_byte(
-    dev,
-    PINNACLE_WRITE | addr, val, w);
+  //
+  // const uint16_t w = 0x2A << 1;
+  // this breaks the board when sending the uf2 to the board
+  // return i2c_reg_write_byte(
+  //   dev,
+  //   w,
+  //   PINNACLE_WRITE | addr, val);
 #endif
 }
 
