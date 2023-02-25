@@ -44,9 +44,10 @@
 };
 
 &i2c0 {
-	compatible = "nordic,nrf-twi";
+	compatible = "nordic,nrf-twim";
 	sda-pin = <17>;
 	scl-pin = <20>;
+	clock-frequency = <I2C_BITRATE_FAST>;
 };
 
 &uart0 {

@@ -42,7 +42,25 @@ static int pinnacle_seq_read(const struct device *dev, const uint8_t addr, uint8
 	};
     return spi_transceive_dt(&config->bus, &tx, &rx);
 #elif DT_INST_ON_BUS(0, i2c)
-    return i2c_burst_read_dt(&config->bus, PINNACLE_READ | addr, buf, len);
+
+  uint8_t i2c_addr = 0x2A << 1; // Shift address one bit for write command
+  uint8_t data[] = {i2c_addr, PINNACLE_READ|addr}; // Register address and value to write
+  int ret = i2c_write_dt(
+      &config->bus, data, sizeof(data));
+  if (ret < 0) {
+    printk("I2C write to request read failed: %d\n", ret);
+    return ret;
+  }
+  i2c_addr = i2c_addr | 0x01;
+  uint8_t data2[] = {i2c_addr, PINNACLE_READ|addr};
+  ret = i2c_write_dt(
+      &config->bus, data2, sizeof(data2));
+  if (ret < 0) {
+    printk("I2C read command failed: %d\n", ret);
+    return ret;
+  }
+  return ret;
+    // return i2c_burst_read_dt(&config->bus, PINNACLE_READ | addr, buf, len);
 #endif
 }
 
@@ -81,14 +99,17 @@ static int pinnacle_write(const struct device *dev, const uint8_t addr, const ui
     return ret;
 #elif DT_INST_ON_BUS(0, i2c)
   uint8_t i2c_addr = 0x2A << 1; // Shift address one bit for write command
-  uint8_t data[] = {PINNACLE_WRITE|addr, val}; // Register address and value to write
+  uint8_t data[] = {i2c_addr, PINNACLE_WRITE|addr, val}; // Register address and value to write
 
   // Start I2C communication
   // this breaks the board when sending the uf2 to the board
-  int ret = i2c_write(dev, data, sizeof(data), i2c_addr);
-  if (ret < 0) {
-    printk("I2C write failed: %d\n", ret);
-  }
+  // int ret = i2c_write_dt(dev, data, sizeof(data), i2c_addr);
+  // int ret = i2c_write_dt(
+  //     &config->bus, data, sizeof(data));
+  // if (ret < 0) {
+  //   printk("I2C write failed: %d\n", ret);
+  // }
+  // return ret;
 
   // NOTE: ../zephyr/samples/drivers/i2c_fujitsu_fram/src/main.c might help
   // Stop I2C communication
@@ -97,7 +118,15 @@ static int pinnacle_write(const struct device *dev, const uint8_t addr, const ui
   // uint8_t v[] = {0x2A << 1, PINNACLE_WRITE|addr, val, I2C_MSG_STOP};
   // // TODO: use &config-bus.addr
   // return i2c_write_dt(&config->bus, v, 4);
-  //
+  
+
+  int ret = i2c_write_dt(
+      &config->bus, data, sizeof(data));
+  if (ret < 0) {
+    printk("I2C write to request read failed: %d\n", ret);
+  }
+  return ret;
+
   // return i2c_reg_write_byte_dt(&config->bus, PINNACLE_WRITE | addr, val);
   //
   // const uint16_t w = 0x2A << 1;
@@ -194,6 +223,15 @@ static void pinnacle_gpio_cb(const struct device *port, struct gpio_callback *cb
 static int pinnacle_init(const struct device *dev) {
     struct pinnacle_data *data = dev->data;
     const struct pinnacle_config *config = dev->config;
+
+  //
+  // uint32_t *dev_config;
+  // i2c_get_config(dev, dev_config);
+  // dev_config |=
+	 //  I2C_MODE_MASTER | I2C_SPEED_SET(I2C_SPEED_FAST);
+  // I2C_SPEED_SET(I2C_SPEED_FAST);
+	//
+	// i2c_configure(ataes132a->i2c, i2c_cfg);
 
     LOG_WRN("pinnacle start");
     int ret;

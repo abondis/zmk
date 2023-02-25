@@ -85,7 +85,7 @@ static int trackpad_init() {
     };
     printk("trackpad");
     /* start periodic timer that expires once every second */
-    // k_timer_start(&my_timer, K_MSEC(100), K_MSEC(100));
+    k_timer_start(&my_timer, K_MSEC(100), K_MSEC(100));
     // if (sensor_trigger_set(trackpad, &trigger, handle_trackpad) < 0) {
     //     LOG_ERR("can't set trigger");
     //     return -EIO;
