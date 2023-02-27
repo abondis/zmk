@@ -1,3 +1,4 @@
+#include "kernel.h"
 #include <drivers/sensor.h>
 #include <logging/log.h>
 
@@ -20,24 +21,29 @@ static void handle_trackpad(const struct device *dev) {
         LOG_ERR("fetch: %d", ret);
         return;
     }
+    // LOG_WRN("fetch: %d", ret);
     struct sensor_value dx, dy, btn;
     ret = sensor_channel_get(dev, SENSOR_CHAN_POS_DX, &dx);
     if (ret < 0) {
         LOG_ERR("get dx: %d", ret);
         return;
     }
+    // LOG_WRN("get dx: %d", ret);
     ret = sensor_channel_get(dev, SENSOR_CHAN_POS_DY, &dy);
     if (ret < 0) {
         LOG_ERR("get dy: %d", ret);
         return;
     }
+    // LOG_WRN("get dy: %d", ret);
     ret = sensor_channel_get(dev, SENSOR_CHAN_PRESS, &btn);
     if (ret < 0) {
         LOG_ERR("get btn: %d", ret);
         return;
     }
-    LOG_DBG("trackpad %d %d %02x", dx.val1, dy.val1, btn.val1);
+    // LOG_WRN("get btn: %d", ret);
+    // LOG_WRN("trackpad %d %d %02x", dx.val1, dy.val1, btn.val1);
     zmk_hid_mouse_movement_set(0, 0);
+    // zmk_hid_mouse_movement_set(dx.val1, dy.val1);
     zmk_hid_mouse_scroll_set(0, 0);
     const uint8_t layer = zmk_keymap_highest_layer_active();
     uint8_t button;
@@ -64,32 +70,20 @@ static void handle_trackpad(const struct device *dev) {
 }
 
 void my_work_handler(struct k_work *work) {
-    /* do the processing that needs to be done periodically */
   handle_trackpad(trackpad);
 }
 
 K_WORK_DEFINE(my_work, my_work_handler);
 
-void my_timer_handler(struct k_timer *dummy)
-{
+void my_timer_handler(struct k_timer *dummy) {
     k_work_submit(&my_work);
 }
 
 K_TIMER_DEFINE(my_timer, my_timer_handler, NULL);
 
-
 static int trackpad_init() {
-    struct sensor_trigger trigger = {
-        .type = SENSOR_TRIG_DATA_READY,
-        .chan = SENSOR_CHAN_ALL,
-    };
     printk("trackpad");
-    /* start periodic timer that expires once every second */
-    k_timer_start(&my_timer, K_MSEC(100), K_MSEC(100));
-    // if (sensor_trigger_set(trackpad, &trigger, handle_trackpad) < 0) {
-    //     LOG_ERR("can't set trigger");
-    //     return -EIO;
-    // };
+    k_timer_start(&my_timer, K_NO_WAIT, K_MSEC(5));
     return 0;
 }
 
