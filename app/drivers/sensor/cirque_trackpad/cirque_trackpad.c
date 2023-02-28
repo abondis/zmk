@@ -95,7 +95,7 @@ static int pinnacle_channel_get(
         val->val1 = data->dx;
         break;
     case SENSOR_CHAN_POS_DY:
-        val->val2 = data->dy;
+        val->val1 = data->dy;
         break;
     case SENSOR_CHAN_PRESS:
         val->val1 = data->btn;
