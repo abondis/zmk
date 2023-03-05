@@ -112,6 +112,8 @@ static int pinnacle_sample_fetch(
     int res = pinnacle_seq_read(dev, PINNACLE_STATUS1, packet, 1);
     if (IS_BIT_SET(packet[0], 2))
       res = pinnacle_seq_read(dev, PINNACLE_2_2_PACKET0, packet, 3);
+    else
+     return -1;
     pinnacle_write(dev, PINNACLE_STATUS1, 0);  // Clear SW_DR
     if (res < 0) {
         LOG_ERR("res: %d", res);
